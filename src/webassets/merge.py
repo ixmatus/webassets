@@ -5,10 +5,10 @@ import contextlib
 
 import urllib.request, urllib.error, urllib.parse
 import logging
-try:
-    import io as StringIO
-except:
-    import io
+try: 
+    from StringIO import StringIO as NativeIO
+except ImportError: # pragma: no cover
+    from io import StringIO as NativeIO
 
 from .utils import cmp_debug_levels
 
@@ -242,13 +242,13 @@ class FilterTool(object):
             kwargs_final.update(kwargs or {})
             
             try:
-                data = io.StringIO(hunk.data())
+                data = NativeIO(hunk.data())
             except:
-                data = StringIO(hunk.data())
+                data = NativeIO(hunk.data())
             for filter in filters:
                 log.debug('Running method "%s" of  %s with kwargs=%s',
                     type, filter, kwargs_final)
-                out = io.StringIO()
+                out = NativeIO()
                 getattr(filter, type)(data, out, **kwargs_final)
                 data = out
                 data.seek(0)
@@ -299,7 +299,7 @@ class FilterTool(object):
 
         def func():
             filter = filters[0]
-            out = io.StringIO()
+            out = NativeIO()
             kwargs_final = self.kwargs.copy()
             kwargs_final.update(kwargs or {})
             log.debug('Running method "%s" of %s with args=%s, kwargs=%s',
