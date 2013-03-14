@@ -241,10 +241,8 @@ class FilterTool(object):
             kwargs_final = self.kwargs.copy()
             kwargs_final.update(kwargs or {})
             
-            try:
-                data = NativeIO(hunk.data())
-            except:
-                data = NativeIO(hunk.data())
+            data = NativeIO(str(hunk.data()))
+            
             for filter in filters:
                 log.debug('Running method "%s" of  %s with kwargs=%s',
                     type, filter, kwargs_final)
