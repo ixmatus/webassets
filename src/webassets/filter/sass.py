@@ -130,7 +130,7 @@ class Sass(Filter):
                                     # shell: necessary on windows to execute
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
-            print(_in.read())
+            
             stdout, stderr = proc.communicate(bytes(_in.read(), "UTF-8"))
 
             if proc.returncode != 0:
