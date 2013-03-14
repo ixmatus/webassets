@@ -177,8 +177,11 @@ def cmp_debug_levels(level1, level2):
     """cmp() for debug levels, returns -1, 0 or +1 indicating which debug
     level is higher than the other one."""
     level_ints = { False: 0, 'merge': 1, True: 2 }
+    
+    comp = lambda a,b: (a > b) - (a < b)
+    
     try:
-        return cmp(level_ints[level1], level_ints[level2])
+        return comp(level_ints[level1], level_ints[level2])
     except KeyError as e:
         # Not sure if a dependency on BundleError is proper here. Validating
         # debug values should probably be done on assign. But because this
