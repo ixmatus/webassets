@@ -139,7 +139,7 @@ class Sass(Filter):
             elif stderr:
                 print("sass filter has warnings:", stderr)
 
-            out.write(stdout)
+            out.write(str(stdout))
         finally:
             if cd:
                 os.chdir(old_dir)
