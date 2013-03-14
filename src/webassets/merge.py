@@ -240,8 +240,11 @@ class FilterTool(object):
         def func():
             kwargs_final = self.kwargs.copy()
             kwargs_final.update(kwargs or {})
-
-            data = io.StringIO(hunk.data())
+            
+            try:
+                data = io.StringIO(hunk.data())
+            except:
+                data = StringIO(hunk.data())
             for filter in filters:
                 log.debug('Running method "%s" of  %s with kwargs=%s',
                     type, filter, kwargs_final)
