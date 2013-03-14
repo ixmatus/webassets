@@ -161,7 +161,7 @@ class HashVersion(Version):
                     'output target has a placeholder')
 
         hasher = self.hasher()
-        hasher.update(hunk.data().encode("UTF-8"))
+        hasher.update(hunk.data())
         return hasher.hexdigest()[:self.length]
 
 
