@@ -68,7 +68,7 @@ def make_md5(data):
             raise ValueError('Cannot MD5 type %s' % type(obj))
     md5 = md5_constructor()
     for d in walk(data):
-        md5.update(d)
+        md5.update(d.encode("UTF-8"))
     return md5.hexdigest()
 
 
