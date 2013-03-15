@@ -88,6 +88,7 @@ class Sass(Filter):
         # files in the (undefined) wd could shadow the correct files.
         
         _in = _in.read()[1:]
+        _in = _in.replace("\n", '')
         
         if cd:
             old_dir = os.getcwd()
