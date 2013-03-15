@@ -86,7 +86,9 @@ class Sass(Filter):
         # Switch to source file directory if asked, so that this directory
         # is by default on the load path. We could pass it via -I, but then
         # files in the (undefined) wd could shadow the correct files.
-        _in = _in.decode()
+        
+        _in = _in.read().decode()
+        
         if cd:
             old_dir = os.getcwd()
             os.chdir(cd)
@@ -131,7 +133,7 @@ class Sass(Filter):
                                     # shell: necessary on windows to execute
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
-            stdout, stderr = proc.communicate(bytes(_in.read(), "UTF-8"))
+            stdout, stderr = proc.communicate(bytes(_in, "UTF-8"))
 
             if proc.returncode != 0:
                 raise FilterError(('sass: subprocess had error: stderr=%s, '+
@@ -147,13 +149,13 @@ class Sass(Filter):
 
     def input(self, _in, out, source_path, output_path, **kw):
         if self.as_output:
-            out.write(_in.read())
+            out.write(_in)
         else:
             self._apply_sass(_in, out, os.path.dirname(source_path))
 
     def output(self, _in, out, **kwargs):
         if not self.as_output:
-            out.write(_in.read())
+            out.write(_in)
         else:
             self._apply_sass(_in, out)
 
