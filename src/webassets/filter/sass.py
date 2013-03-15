@@ -134,7 +134,7 @@ class Sass(Filter):
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
             
-            stdout, stderr = proc.communicate(_in)
+            stdout, stderr = proc.communicate(bytes(_in, "utf-8"))
 
             if proc.returncode != 0:
                 raise FilterError(('sass: subprocess had error: stderr=%s, '+
