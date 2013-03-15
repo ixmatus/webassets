@@ -133,6 +133,9 @@ class Sass(Filter):
                                     # shell: necessary on windows to execute
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
+            with open("/alfred/WTF", "w") as f:
+                f.write(bytes(_in, "utf-8"))
+            
             stdout, stderr = proc.communicate(bytes(_in, 'utf-8'))
 
             if proc.returncode != 0:
