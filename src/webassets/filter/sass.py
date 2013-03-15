@@ -86,6 +86,7 @@ class Sass(Filter):
         # Switch to source file directory if asked, so that this directory
         # is by default on the load path. We could pass it via -I, but then
         # files in the (undefined) wd could shadow the correct files.
+        _in = _in.decode()
         if cd:
             old_dir = os.getcwd()
             os.chdir(cd)
