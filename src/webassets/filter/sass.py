@@ -87,7 +87,7 @@ class Sass(Filter):
         # is by default on the load path. We could pass it via -I, but then
         # files in the (undefined) wd could shadow the correct files.
         
-        _in = _in.read()
+        _in = _in.read()[1:]
         
         if cd:
             old_dir = os.getcwd()
