@@ -87,7 +87,7 @@ class Sass(Filter):
         # is by default on the load path. We could pass it via -I, but then
         # files in the (undefined) wd could shadow the correct files.
         
-        _in = _in.read().decode()
+        _in = _in.read()
         
         if cd:
             old_dir = os.getcwd()
@@ -125,7 +125,7 @@ class Sass(Filter):
                 args.extend(['-I', path])
             for lib in self.libs or []:
                 args.extend(['-r', lib])
-
+            
             proc = subprocess.Popen(args,
                                     stdin=subprocess.PIPE,
                                     stdout=subprocess.PIPE,
@@ -133,7 +133,7 @@ class Sass(Filter):
                                     # shell: necessary on windows to execute
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
-            stdout, stderr = proc.communicate(bytes(_in, "UTF-8"))
+            stdout, stderr = proc.communicate(_in)
 
             if proc.returncode != 0:
                 raise FilterError(('sass: subprocess had error: stderr=%s, '+
