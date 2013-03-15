@@ -133,7 +133,8 @@ class Sass(Filter):
                                     # shell: necessary on windows to execute
                                     # ruby files, but doesn't work on linux.
                                     shell=(os.name == 'nt'))
-            stdout, stderr = proc.communicate(_in)
+            proc.stdin.write(bytes(_in, 'utf-8'))
+            stdout, stderr = proc.communicate()
 
             if proc.returncode != 0:
                 raise FilterError(('sass: subprocess had error: stderr=%s, '+
